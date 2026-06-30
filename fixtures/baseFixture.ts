@@ -2,9 +2,11 @@ import {test as base,expect}from "@playwright/test";
 
 import { LoginPage } from "../pages/LoginPage";
 import { DashboardPage } from "../pages/DashboardPage";
+import { DemoLoginPage } from "../pages/DemoblazePages/DemoblazeLoginPage";
 type Fixture={
     loginPage: LoginPage;
     dashboardPage:DashboardPage;
+    demoLoginPage:DemoLoginPage;
 }
 
 export const test=base.extend<Fixture>({
@@ -14,5 +16,8 @@ export const test=base.extend<Fixture>({
     dashboardPage:async({page},use)=>{
         await use(new DashboardPage(page));
     },
+    demoLoginPage:async({page},use)=>{
+        await use(new DemoLoginPage(page));
+    }
 });
 export{expect}

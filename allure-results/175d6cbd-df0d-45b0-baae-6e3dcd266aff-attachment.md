@@ -1,0 +1,68 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: DemoBlazeTest\demoblazeLogin.test.ts >> demoblaze login test >> Demoblaze valid login
+- Location: tests\DemoBlazeTest\demoblazeLogin.test.ts:13:9
+
+# Error details
+
+```
+Error: page.goto: Test ended.
+Call log:
+  - navigating to "https://www.demoblaze.com/", waiting until "domcontentloaded"
+
+```
+
+# Test source
+
+```ts
+  1  | import {Page,Locator,expect} from '@playwright/test';
+  2  | 
+  3  | export class DemoLoginPage{
+  4  |     readonly page:Page;
+  5  |     readonly loginLink:Locator;
+  6  |     readonly username:Locator;
+  7  |     readonly password:Locator;
+  8  |     readonly loginbtn:Locator;
+  9  |     readonly logoutbtn:Locator;
+  10 |     readonly loggeduser:Locator;
+  11 | 
+  12 |     constructor(page:Page){
+  13 |         this.page=page;
+  14 |         this.loginLink=page.locator("//a[@id='login2']");
+  15 |         this.username=page.locator("//input[@id='loginusername']");
+  16 |         this.password=page.locator("//input[@id='loginpassword']");
+  17 |         this.loginbtn=page.locator("//button[text()='Log in']");
+  18 |         this.logoutbtn=page.locator("//a[@id='logout2']");
+  19 |         this.loggeduser=page.locator("//a[@id='nameofuser']");
+  20 |     }
+  21 | 
+  22 |     async loginAction(username: string, password: string) {
+  23 |     await this.loginLink.click();
+  24 |     await expect(this.username).toBeVisible();
+  25 | 
+  26 |     await this.username.fill(username);
+  27 |     await this.password.fill(password);
+  28 |     await this.loginbtn.click();
+  29 | }
+  30 | 
+  31 |     async getloggeduserName(){
+  32 |         return this.loggeduser.textContent();
+  33 |     }
+  34 |     async navigation(){
+> 35 |         return this.page.goto(process.env.BASE_URL!,
+     |                          ^ Error: page.goto: Test ended.
+  36 |             {
+  37 |                 waitUntil:'domcontentloaded'
+  38 |             }
+  39 |         );
+  40 |     }
+  41 | 
+  42 | }
+  43 | 
+```
