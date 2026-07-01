@@ -8,7 +8,7 @@ export class UserPage{
 
     constructor(page:Page){
         this.page=page;
-       this.laptoplink = page.locator("//a[text()='Laptops']");
+        this.laptoplink = page.locator("//a[text()='Laptops']");
         this.maclap=page.locator("//a[normalize-space()='MacBook Pro']");
         this.lapTitle=page.locator("//h2[@class='name']")
     }
